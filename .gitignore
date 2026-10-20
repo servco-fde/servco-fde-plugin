@@ -1,0 +1,66 @@
+# Operating system files
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+
+# Editor settings and temporary files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Python environments, bytecode, and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+
+# Dependencies and build outputs
+node_modules/
+build/
+dist/
+.next/
+.turbo/
+*.tsbuildinfo
+
+# Test reports and coverage
+coverage/
+.coverage
+.coverage.*
+htmlcov/
+playwright-report/
+test-results/
+
+# Local environment configuration and credentials
+.env
+.env.*
+!.env.example
+!.env.*.example
+.databrickscfg
+.databricks/
+.aws/
+.azure/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local Reffy runtime state
+/.reffy/state/
+
+# Keep lockfiles, shared agent guidance, skills, and .reffy/ SDD files versioned.

@@ -1,0 +1,7 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "servco-fde-plugin",
+  "version": "0.1.0",
+  "description": "Guide Forward Deployed Engineers from an internal app idea through development, Databricks Apps delivery, and ongoing support.",
+  "keywords": ["fde", "onboarding", "databricks-apps", "azure-devops", "microsoft-graph"]
+}
