@@ -2,6 +2,16 @@
 
 A starter agent plugin for Forward Deployed Engineers building and supporting internal applications. It packages reusable workflows as skills, with Databricks Apps as the initial delivery platform and Azure DevOps as the CI/CD platform. Microsoft Graph integration starts as a planning workflow.
 
+## What is an agent plugin?
+
+An agent plugin packages reusable capabilities into a portable directory that a compatible agent client can discover and load. The [Agent Plugins v1 specification](https://agent-plugins.org/specification) defines two component types: skills and MCP servers.
+
+- **`plugin.json`** (required, at the root): identifies the plugin and its target specification through `$schema` and `name`, with optional metadata such as version and description.
+- **`skills/<name>/SKILL.md`** (optional): gives the agent instructions for a particular workflow. Each skill sits directly under `skills/` and follows the [Agent Skills specification](https://agentskills.io/specification), with optional scripts, references, and assets alongside it.
+- **`mcp.json`** (optional, at the root): configures Model Context Protocol servers that expose tools and context to the agent.
+
+The client discovers components at these fixed locations. This plugin uses skills to share FDE workflows; its MCP configuration is currently empty.
+
 ## Start here
 
 1. Clone or download this repository into a trusted local directory.
