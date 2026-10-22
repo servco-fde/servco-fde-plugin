@@ -147,7 +147,7 @@ offline transport checks, not GitHub authentication evidence.
 | Pin, update, rollback | Passed using fixture tags `fixture-v1` and `fixture-v2`; installed content and package versions checked |
 | Removal | Passed; shared skills disappear, app-local skill remains |
 | Onboarding prompt review | Reviewed manually: source/ref/client gaps are requested, app work stays in the app repo, platform choices remain explicit |
-| Actual agent invocation and FDE onboarding | Pending; follow the user walkthrough below. Discovery and file access do not prove agent behavior |
+| Actual agent invocation and FDE onboarding | Passed in two independent fresh `codex exec` sessions against the real GitHub commit. Each read the installed skill and bundled template, then saved `application-brief.md` with all 13 template fields, local scope, and explicitly unresolved choices |
 | Real GitHub installation | Passed at `635e2e0935f61dac0bb0a427f1442209156e6c25`, package 0.1.0; all ten installed skill/resource files matched source and all five skills appeared at user scope in both scratch repositories |
 | Real GitHub pin refresh and removal | Passed; refresh/reinstall retained the pinned version, removal cleared installed-plugin state and shared discovery |
 | Private-source success/failure | Not applicable to the current public repository; anonymous GitHub access passed with credential helpers and global/system Git configuration disabled. Repeat access checks if visibility changes |
@@ -167,13 +167,29 @@ it skips the opt-in client checks. The validator covers this repository's local
 catalog format, required metadata, identity consistency, and source containment;
 it does not validate every Codex catalog source type.
 
-Before team rollout, record an accessible GitHub ref, repeat the clean install
+For future releases, record an accessible GitHub ref, repeat the clean install
 and lifecycle checks against it, exercise private-access success/failure if
-applicable, and have an FDE invoke onboarding in two app repositories. Record
+applicable, and repeat onboarding in two app repositories. Record
 client/version, source/ref/resolved SHA, steps, expected and actual results,
 required reloads, and limitations here without credentials or customer data.
 
-### Remaining user walkthrough
+### Reproduce the onboarding walkthrough
+
+The walkthrough passed on 2026-10-22 using two independent non-interactive
+Codex CLI 0.163.0 sessions, each in a separate scratch Git repository with no
+shared skill copies. The source was the verified GitHub revision above. Both
+sessions exited successfully and produced a usable brief from the installed
+template. Session IDs were `01a165a1-fe2f-7f31-8108-d2e89f963d99` and
+`01a165a2-966d-7430-840d-52c1ed1cfe5f`.
+
+Each brief included all 13 template fields, a proposed request workflow and
+observable acceptance criteria, explicitly unresolved ownership/access choices,
+and a local-only next milestone. Command traces confirmed both sessions read
+the cached `fde-onboarding/SKILL.md` and `assets/application-brief.md`. No
+deployment or cloud operations occurred. The temporary authentication copy was
+deleted after testing; user plugin configuration was not changed. These results
+verify CLI agent behavior, not desktop/IDE compatibility or a human usability
+study.
 
 Install the verified revision in your regular Codex CLI environment:
 
@@ -199,8 +215,7 @@ and questions concern real missing application choices. Repeat in a second
 scratch application repository without copying the shared skills. Report your
 client/version and whether each invocation produced the brief, with any error
 text and output file paths. Do not include credentials or real customer data.
-The maintainer can then record this evidence, complete task 3.2, and archive the
-change after the final validation pass.
+Use this procedure to recheck onboarding after future client or skill changes.
 
 ## Official documentation
 

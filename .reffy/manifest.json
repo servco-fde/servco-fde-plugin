@@ -1,7 +1,7 @@
 {
   "version": 1,
   "created_at": "2026-10-19T23:44:41.997Z",
-  "updated_at": "2026-10-22T00:48:18.261Z",
+  "updated_at": "2026-10-22T22:03:06.842Z",
   "project_id": "servco-fde-plugin",
   "workspace_ids": [
     "servco-fde"
@@ -27,15 +27,15 @@
       "size_bytes": 2515,
       "tags": [],
       "created_at": "2026-10-22T00:48:17.716Z",
-      "updated_at": "2026-10-22T00:48:18.261Z",
+      "updated_at": "2026-10-22T22:03:06.842Z",
       "related_changes": [
         "add-shared-plugin-distribution"
       ],
       "derived_outputs": [
-        ".reffy/reffyspec/changes/add-shared-plugin-distribution/proposal.md",
-        ".reffy/reffyspec/changes/add-shared-plugin-distribution/tasks.md",
-        ".reffy/reffyspec/changes/add-shared-plugin-distribution/design.md",
-        ".reffy/reffyspec/changes/add-shared-plugin-distribution/specs/shared-plugin-distribution/spec.md"
+        ".reffy/reffyspec/changes/archive/2026-10-22-add-shared-plugin-distribution/proposal.md",
+        ".reffy/reffyspec/changes/archive/2026-10-22-add-shared-plugin-distribution/tasks.md",
+        ".reffy/reffyspec/changes/archive/2026-10-22-add-shared-plugin-distribution/design.md",
+        ".reffy/reffyspec/changes/archive/2026-10-22-add-shared-plugin-distribution/specs/shared-plugin-distribution/spec.md"
       ]
     }
   ]
