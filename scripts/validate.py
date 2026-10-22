@@ -30,6 +30,63 @@ def manifest(filename, schema_name):
     return data
 
 
+def marketplace(plugin):
+    """Check this repository's local catalog subset, not every Codex source type."""
+    catalog_path = contained(ROOT / ".agents/plugins/marketplace.json")
+    catalog = json.loads(catalog_path.read_text())
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError(f"Marketplace: {message}")
+
+    def nonempty(value):
+        return isinstance(value, str) and bool(value.strip())
+
+    require(isinstance(catalog, dict), "expected an object")
+    require(isinstance(catalog.get("name"), str) and re.fullmatch(
+        r"[a-z0-9]+(?:-[a-z0-9]+)*", catalog["name"]), "invalid name")
+    interface = catalog.get("interface")
+    require(isinstance(interface, dict) and nonempty(interface.get("displayName")),
+            "interface.displayName is required")
+    entries = catalog.get("plugins")
+    require(isinstance(entries, list) and bool(entries), "plugins must be a nonempty list")
+    names = set()
+    roots = set()
+    for entry in entries:
+        require(isinstance(entry, dict), "plugin entry must be an object")
+        name = entry.get("name")
+        require(nonempty(name), "plugin name is required")
+        require(name not in names, f"duplicate plugin name: {name}")
+        names.add(name)
+        source = entry.get("source")
+        require(isinstance(source, dict) and source.get("source") == "local",
+                f"{name}: this catalog requires a local source object")
+        relative = source.get("path")
+        require(isinstance(relative, str) and relative.startswith("./")
+                and "\\" not in relative and ".." not in Path(relative).parts,
+                f"{name}: source.path must start with ./ and stay inside the package")
+        package = contained(ROOT / relative).resolve()
+        require(package.is_dir(), f"{name}: source directory does not exist")
+        require(package not in roots, f"{name}: duplicate plugin source")
+        roots.add(package)
+        package_manifest = contained(package / "plugin.json")
+        require(package_manifest.is_file(), f"{name}: source has no plugin.json")
+        target = json.loads(package_manifest.read_text())
+        require(isinstance(target, dict) and target.get("name") == name,
+                f"{name}: catalog name does not match source manifest")
+        require(package == ROOT.resolve() and name == plugin["name"],
+                f"{name}: this catalog must point to the repository-root plugin")
+        policy = entry.get("policy")
+        require(isinstance(policy, dict), f"{name}: policy is required")
+        require(policy.get("installation") in (
+            "AVAILABLE", "INSTALLED_BY_DEFAULT", "NOT_AVAILABLE"),
+            f"{name}: invalid policy.installation")
+        require(policy.get("authentication") in ("ON_INSTALL", "ON_USE"),
+                f"{name}: invalid policy.authentication")
+        require(nonempty(entry.get("category")), f"{name}: category is required")
+    require(plugin["name"] in names, "root plugin entry is required")
+
+
 def skill(path):
     text = contained(path).read_text()
     match = re.match(r"\A---\r?\n(.*?)\r?\n---(?:\r?\n|\Z)", text, re.S)
@@ -98,7 +155,8 @@ def mcp_paths(config):
 
 
 def main():
-    manifest("plugin.json", "plugin.schema.json")
+    plugin = manifest("plugin.json", "plugin.schema.json")
+    marketplace(plugin)
     mcp_path = ROOT / "mcp.json"
     if mcp_path.exists():
         config = manifest("mcp.json", "mcp.schema.json")
@@ -128,7 +186,7 @@ def main():
                     documents.append(path)
     for path in documents:
         markdown_links(contained(path))
-    print(f"Validated plugin manifest, MCP scaffold, {len(found)} skills, and local Markdown links.")
+    print(f"Validated plugin manifest, marketplace, MCP scaffold, {len(found)} skills, and local Markdown links.")
 
 
 if __name__ == "__main__":

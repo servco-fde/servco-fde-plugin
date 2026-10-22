@@ -20,3 +20,5 @@ steps:
     displayName: Install validation dependencies
   - script: python scripts/validate.py
     displayName: Validate plugin and skills
+  - script: python -m unittest discover -s tests -v
+    displayName: Test catalog validation

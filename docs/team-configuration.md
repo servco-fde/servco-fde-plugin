@@ -5,8 +5,10 @@ This file records unresolved rollout decisions. Replace “Not configured” wit
 | Setting | Current value |
 | --- | --- |
 | Maintainer and support channel | Not configured |
-| Supported agent client and local install instructions | Not configured |
-| Plugin distribution location and access requirements | Not configured |
+| Supported agent client and local install instructions | Initial verification target: Codex CLI 0.163.0; offline install/discovery/lifecycle checks passed. See [distribution evidence and pending rollout checks](distribution.md). Desktop/IDE, Claude Code, and Cursor unverified. |
+| Plugin distribution location and access requirements | Configured Git remote: `https://github.com/servco-fde/servco-fde-plugin.git`. Catalog: `servco-fde`; package: `servco-fde-plugin`. GitHub install at a published ref and private access policy remain unverified. |
+| Release owner, ref, and resolved commit SHA | Not configured; record for the first team release |
+| Repository access request process | Not configured |
 | License / internal distribution policy | Not configured |
 | Starter application repository and supported frameworks | Not configured |
 | Databricks workspace URLs and dev/test/prod mapping | Not configured |
