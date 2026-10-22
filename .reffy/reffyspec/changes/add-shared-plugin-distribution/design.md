@@ -67,4 +67,6 @@ Thirteen tests passed, including opt-in offline CLI checks using a temporary `CO
 
 A local-root install copied an ignored `.env` sentinel; a Git-backed install excluded it. Local previews therefore require a clean checkout. No real environment file was read or copied in these checks.
 
-The change remains open for the real GitHub/private-access checks and an FDE's actual agent invocation. Discovery and file access are recorded separately from agent behavior. No publication, remote sync, or changes to the user's installed plugins were performed.
+Follow-up verification published review branch `verify/shared-plugin-distribution` and tested the real GitHub source at `635e2e0935f61dac0bb0a427f1442209156e6c25`. Anonymous access, installed skill/resource content, discovery in two scratch repositories, pinned refresh, and removal passed. GitHub reports the repository as public, so private-source checks are not applicable to the current distribution.
+
+The change remains open for an FDE's actual agent invocation. Discovery and file access are recorded separately from agent behavior. The user's installed plugins were not changed, and no release, merge, or Reffy remote sync was performed.

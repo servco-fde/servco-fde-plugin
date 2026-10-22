@@ -5,8 +5,8 @@ This file records unresolved rollout decisions. Replace “Not configured” wit
 | Setting | Current value |
 | --- | --- |
 | Maintainer and support channel | Not configured |
-| Supported agent client and local install instructions | Initial verification target: Codex CLI 0.163.0; offline install/discovery/lifecycle checks passed. See [distribution evidence and pending rollout checks](distribution.md). Desktop/IDE, Claude Code, and Cursor unverified. |
-| Plugin distribution location and access requirements | Configured Git remote: `https://github.com/servco-fde/servco-fde-plugin.git`. Catalog: `servco-fde`; package: `servco-fde-plugin`. GitHub install at a published ref and private access policy remain unverified. |
+| Supported agent client and local install instructions | Codex CLI 0.163.0: offline lifecycle and real GitHub install/discovery/removal checks passed. User invocation remains pending; see [distribution evidence and walkthrough](distribution.md). Desktop/IDE, Claude Code, and Cursor unverified. |
+| Plugin distribution location and access requirements | Public repository `https://github.com/servco-fde/servco-fde-plugin.git`; anonymous Git access verified. Catalog: `servco-fde`; package: `servco-fde-plugin`. Verification ref: `635e2e0935f61dac0bb0a427f1442209156e6c25` on `verify/shared-plugin-distribution`; not a declared release. |
 | Release owner, ref, and resolved commit SHA | Not configured; record for the first team release |
 | Repository access request process | Not configured |
 | License / internal distribution policy | Not configured |

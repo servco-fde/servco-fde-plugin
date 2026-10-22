@@ -6,9 +6,12 @@ extension; root `plugin.json` remains the portable manifest. No compatibility
 manifest was needed in the tested CLI.
 
 The configured Git remote is `https://github.com/servco-fde/servco-fde-plugin.git`.
-The catalog must be committed and available at the chosen Git ref before using
-the GitHub installation below. Hosting access and distribution terms still need
-to be recorded in [team configuration](team-configuration.md).
+The catalog is available on the `verify/shared-plugin-distribution` review
+branch. GitHub installation was verified at commit
+`635e2e0935f61dac0bb0a427f1442209156e6c25`; this is a verification revision,
+not a declared release. The repository is public and anonymous read access was
+verified. Distribution terms and ownership still need to be recorded in
+[team configuration](team-configuration.md).
 
 ## Ask your agent to install it
 
@@ -144,8 +147,10 @@ offline transport checks, not GitHub authentication evidence.
 | Pin, update, rollback | Passed using fixture tags `fixture-v1` and `fixture-v2`; installed content and package versions checked |
 | Removal | Passed; shared skills disappear, app-local skill remains |
 | Onboarding prompt review | Reviewed manually: source/ref/client gaps are requested, app work stays in the app repo, platform choices remain explicit |
-| Actual agent invocation and FDE onboarding | Pending; discovery and file access do not prove agent behavior |
-| GitHub/private-source installation and access failure | Pending; requires these changes at an accessible source ref and appropriate access |
+| Actual agent invocation and FDE onboarding | Pending; follow the user walkthrough below. Discovery and file access do not prove agent behavior |
+| Real GitHub installation | Passed at `635e2e0935f61dac0bb0a427f1442209156e6c25`, package 0.1.0; all ten installed skill/resource files matched source and all five skills appeared at user scope in both scratch repositories |
+| Real GitHub pin refresh and removal | Passed; refresh/reinstall retained the pinned version, removal cleared installed-plugin state and shared discovery |
+| Private-source success/failure | Not applicable to the current public repository; anonymous GitHub access passed with credential helpers and global/system Git configuration disabled. Repeat access checks if visibility changes |
 | Desktop/IDE surfaces, Claude Code, Cursor | Unverified; do not assume the CLI result applies to these clients |
 
 Run the checks with development dependencies installed:
@@ -167,6 +172,35 @@ and lifecycle checks against it, exercise private-access success/failure if
 applicable, and have an FDE invoke onboarding in two app repositories. Record
 client/version, source/ref/resolved SHA, steps, expected and actual results,
 required reloads, and limitations here without credentials or customer data.
+
+### Remaining user walkthrough
+
+Install the verified revision in your regular Codex CLI environment:
+
+```sh
+codex --version
+codex plugin marketplace add https://github.com/servco-fde/servco-fde-plugin.git --ref 635e2e0935f61dac0bb0a427f1442209156e6c25 --json
+codex plugin add servco-fde-plugin@servco-fde --json
+codex plugin list --json
+```
+
+If `servco-fde` is already configured from another source/ref, inspect
+`codex plugin marketplace list --json` first and use the documented reinstall
+sequence to select the verified revision; do not assume an existing entry moved.
+
+Start a fresh Codex session in a scratch application repository and send:
+
+> $servco-fde-plugin:fde-onboarding Help me outline an internal app for tracking
+> equipment requests. Save an application brief using your bundled template.
+> Keep this exercise local; do not deploy or create cloud resources.
+
+Confirm that the skill is found, the saved brief uses the bundled template,
+and questions concern real missing application choices. Repeat in a second
+scratch application repository without copying the shared skills. Report your
+client/version and whether each invocation produced the brief, with any error
+text and output file paths. Do not include credentials or real customer data.
+The maintainer can then record this evidence, complete task 3.2, and archive the
+change after the final validation pass.
 
 ## Official documentation
 

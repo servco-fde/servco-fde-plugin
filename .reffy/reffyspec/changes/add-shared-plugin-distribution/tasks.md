@@ -13,12 +13,13 @@
 ## 3. Verification and release readiness
 - [x] 3.1 Run `python3 scripts/validate.py` with `requirements-dev.txt` installed and confirm meaningful invalid catalog fixtures fail.
 - [ ] 3.2 In a clean selected client, install from the real Git-backed catalog and verify shared workflow discovery and use from two scratch application repositories without copying shared skills into them.
+  Real GitHub install and discovery passed at `635e2e0935f61dac0bb0a427f1442209156e6c25`; actual user invocation in fresh sessions remains pending. Follow the walkthrough in `docs/distribution.md`.
 - [x] 3.3 Verify a distinct app-local skill coexists with the shared plugin and that an individually installed skill can access its packaged resources.
 - [x] 3.4 Exercise update, a pinned ref, rollback to prior workflow content, and removal; record client/version, source ref, steps, outcomes, and reload requirements. Completed against offline Git fixture tags; actual GitHub verification remains in 3.2.
-- [ ] 3.5 Check private-source installation and missing-access behavior where applicable; record unavailable checks and keep untested clients explicitly unverified.
+- [x] 3.5 Check private-source installation and missing-access behavior where applicable; record unavailable checks and keep untested clients explicitly unverified. Repository is public; anonymous GitHub access verified with credential helpers disabled. Private-source checks are not applicable unless visibility changes; other client surfaces remain unverified.
 - [x] 3.6 Walk through the onboarding prompt as an FDE, checking routing, missing inputs, and authorization boundaries; record evidence in the distribution guide. Completed as a manual instruction review; actual agent invocation remains in 3.2.
 - [x] 3.7 Run `reffy validate` and `reffy plan validate add-shared-plugin-distribution`; review acceptance scenarios against recorded evidence before marking implementation complete.
 
 ## Remaining rollout verification
 
-Local implementation and offline CLI checks are complete. Tasks 3.2 and 3.5 remain open until the catalog is available at a real accessible GitHub ref and the FDE/client walkthrough and applicable private-access checks are performed. Record that evidence in `docs/distribution.md`; do not archive this change or claim full rollout verification yet.
+Local implementation, offline CLI checks, and real GitHub install/discovery checks are complete. Only task 3.2 remains open for the FDE's actual onboarding invocation from fresh sessions in two scratch repositories. Record the user's results in `docs/distribution.md`; do not archive this change or claim full rollout verification yet.
