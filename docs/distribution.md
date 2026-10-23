@@ -6,8 +6,7 @@ extension; root `plugin.json` remains the portable manifest. No compatibility
 manifest was needed in the tested CLI.
 
 The configured Git remote is `https://github.com/servco-fde/servco-fde-plugin.git`.
-The catalog is available on the `verify/shared-plugin-distribution` review
-branch. GitHub installation was verified at commit
+The catalog is available on the default branch. GitHub installation was verified at commit
 `635e2e0935f61dac0bb0a427f1442209156e6c25`; this is a verification revision,
 not a declared release. The repository is public and anonymous read access was
 verified. Distribution terms and ownership still need to be recorded in
@@ -15,14 +14,25 @@ verified. Distribution terms and ownership still need to be recorded in
 
 ## Ask your agent to install it
 
-Copy this prompt and replace the client and ref with your chosen values:
+Open Codex CLI by running `codex` in your terminal, then paste this message:
 
-> Install the shared `servco-fde-plugin` from
-> `https://github.com/servco-fde/servco-fde-plugin.git` for use across my projects
-> in Codex CLI. Use Git ref `<release-tag-or-commit>`. Check my client version
-> and existing repository access, add the `servco-fde` marketplace, install the
-> plugin, and show how I can confirm the shared workflows in a new session.
-> Reuse choices already provided. Ask for any missing ref or client information.
+> Help me install the Servco FDE plugin so I can use it across my projects in
+> Codex CLI. The repository is
+> `https://github.com/servco-fde/servco-fde-plugin.git`.
+> Check whether my Codex version supports plugins and whether it is already
+> installed. If needed, add the `servco-fde` marketplace from this repository
+> and install `servco-fde-plugin`. Use the repository's default branch.
+> Confirm the plugin is installed and enabled, then show me how to start a
+> new session and try the onboarding workflow. If anything prevents installation,
+> explain what I need to do in plain language.
+
+You can paste this as written; there is no version or Git reference to fill in.
+Once installation finishes, start a new Codex session in your application folder
+and send:
+
+```text
+$servco-fde-plugin:fde-onboarding Help me plan my first app. Ask me what I want to build and save an application brief.
+```
 
 Use an existing Git credential helper or SSH setup for a private source. If Git
 cannot read it, resolve access through the team's repository owner; that contact
@@ -35,20 +45,17 @@ These commands were exercised with CLI **0.163.0**, using an offline Git fixture
 Start by checking `codex --version` and `codex plugin --help`. A client without
 these commands needs an upgrade or the individual-skill path below.
 
-Set `FDE_PLUGIN_REF` to an available release tag or full commit SHA; no release
-tag is assumed here. Run from your application directory:
+For a normal installation, use the repository's default branch. Run from your
+application directory:
 
 ```sh
 FDE_PLUGIN_SOURCE='https://github.com/servco-fde/servco-fde-plugin.git'
-FDE_PLUGIN_REF='<release-tag-or-commit>'
-codex plugin marketplace add "$FDE_PLUGIN_SOURCE" --ref "$FDE_PLUGIN_REF" --json
+codex plugin marketplace add "$FDE_PLUGIN_SOURCE" --json
 codex plugin add servco-fde-plugin@servco-fde --json
 codex plugin list --json
 ```
 
-Confirm the listed plugin is installed and enabled. Save the chosen ref, the
-resolved commit SHA, plugin version, and client version in your installation
-record. Prefer a full commit SHA when you need an immutable pin. This installs
+Confirm the listed plugin is installed and enabled. This installs
 the workflows at user scope; opening the package repository alone is not the
 installation step.
 
@@ -67,6 +74,11 @@ testing. Do not point a local install at a working directory containing secrets.
 The Git-backed fixture excluded its ignored `.env` file.
 
 ## Update, pin, roll back, and remove
+
+Pinning to a tag or commit is optional. Add `--ref <tag-or-commit>` to the
+marketplace add command only when you need a specific revision, such as for a
+repeatable installation or rollback. Record the resolved commit, plugin version,
+and client version when reproducing an installation.
 
 `codex plugin marketplace upgrade servco-fde --json` refreshes the configured
 Git catalog. In the fixture check, refreshing a catalog pinned to the first tag
